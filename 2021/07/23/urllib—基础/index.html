@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>urllib—基础 | Hexo</title>
+  <meta name="description" content="urlliburllib作为Python的标准库，基本上涵盖了基础的网络请求功能。 1.urllib.request urllib中，request这个模块主要负责构造和发起网络请求，并在其中加入Headers、Proxy等。 (1)发起GET请求 主要使用urlopen()方法来发起请求： 1234from urllib import request resp &#x3D;request.urlopen(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="urllib—基础">
+<meta property="og:url" content="http://example.com/2021/07/23/urllib%E2%80%94%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="urlliburllib作为Python的标准库，基本上涵盖了基础的网络请求功能。 1.urllib.request urllib中，request这个模块主要负责构造和发起网络请求，并在其中加入Headers、Proxy等。 (1)发起GET请求 主要使用urlopen()方法来发起请求： 1234from urllib import request resp &#x3D;request.urlopen(">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-22T23:22:36.000Z">
+<meta property="article:modified_time" content="2021-07-22T23:38:51.879Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="本篇针对urllib进行基础讲解">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/07/23/urllib%E2%80%94%E5%9F%BA%E7%A1%80/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/yoacsama" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Yo4c_5ama</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Hacker</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Chengdu, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">Books</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yoacsama" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AC%E7%AF%87%E4%B8%BAFake-comment-detection%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%A4%A7%E5%88%9B%E7%94%B3%E8%AF%B7%E4%B9%A6%E6%A1%86%E6%9E%B6/" rel="tag">本篇为Fake_comment_detection项目的大创申请书框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AC%E7%AF%87%E9%92%88%E5%AF%B9urllib%E8%BF%9B%E8%A1%8C%E5%9F%BA%E7%A1%80%E8%AE%B2%E8%A7%A3/" rel="tag">本篇针对urllib进行基础讲解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AC%E7%AF%87%E9%92%88%E5%AF%B9%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%BF%9B%E8%A1%8C%E7%AE%80%E8%A6%81%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/" rel="tag">本篇针对正则表达式基础语法进行简要总结归纳</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/%E6%9C%AC%E7%AF%87%E4%B8%BAFake-comment-detection%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%A4%A7%E5%88%9B%E7%94%B3%E8%AF%B7%E4%B9%A6%E6%A1%86%E6%9E%B6/" style="font-size: 13px;">本篇为Fake_comment_detection项目的大创申请书框架</a> <a href="/tags/%E6%9C%AC%E7%AF%87%E9%92%88%E5%AF%B9urllib%E8%BF%9B%E8%A1%8C%E5%9F%BA%E7%A1%80%E8%AE%B2%E8%A7%A3/" style="font-size: 13px;">本篇针对urllib进行基础讲解</a> <a href="/tags/%E6%9C%AC%E7%AF%87%E9%92%88%E5%AF%B9%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%BF%9B%E8%A1%8C%E7%AE%80%E8%A6%81%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/" style="font-size: 13px;">本篇针对正则表达式基础语法进行简要总结归纳</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/23/2020-2021%E5%A4%A7%E5%88%9B%E6%A1%86%E6%9E%B6Fake-comment-detection/" class="title">2020-2021大创框架Fake_comment_detection</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-22T23:23:42.000Z" itemprop="datePublished">2021-07-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/23/urllib%E2%80%94%E5%9F%BA%E7%A1%80/" class="title">urllib—基础</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-22T23:22:36.000Z" itemprop="datePublished">2021-07-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/23/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="title">正则表达式—基础语法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-22T23:21:16.000Z" itemprop="datePublished">2021-07-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/22/My-First-Blog/" class="title">My First Blog</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-22T15:23:51.000Z" itemprop="datePublished">2021-07-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/22/hello-world/" class="title">Hello World</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-22T15:19:53.344Z" itemprop="datePublished">2021-07-22</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-urllib—基础" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      urllib—基础
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/07/23/urllib%E2%80%94%E5%9F%BA%E7%A1%80/" class="article-date">
+	  <time datetime="2021-07-22T23:22:36.000Z" itemprop="datePublished">2021-07-23</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E6%9C%AC%E7%AF%87%E9%92%88%E5%AF%B9urllib%E8%BF%9B%E8%A1%8C%E5%9F%BA%E7%A1%80%E8%AE%B2%E8%A7%A3/" rel="tag">本篇针对urllib进行基础讲解</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/07/23/urllib%E2%80%94%E5%9F%BA%E7%A1%80/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="urllib"><a href="#urllib" class="headerlink" title="urllib"></a><strong>urllib</strong></h1><p>urllib作为Python的标准库，基本上涵盖了基础的网络请求功能。</p>
+<p><strong>1.urllib.request</strong></p>
+<p>urllib中，request这个模块主要负责构造和发起网络请求，并在其中加入Headers、Proxy等。</p>
+<p>(1)发起GET请求</p>
+<p>主要使用urlopen()方法来发起请求：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request </span><br><span class="line">resp =request.urlopen(<span class="string">&#x27;http://www.baidu.com&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(resp.read().decode())</span><br><span class="line"><span class="comment">#在urlopen()方法中传入字符串格式的url地址，则此方法会访问目标网址，然后返回访问的结果。</span></span><br></pre></td></tr></table></figure>
+
+<p>返回的结果会是一个http.client.HTTPResponse对象，使用此对象的read()方法可以获取访问网页获得的数据。但是要注意的是，获得的数据会是bytes的二进制格式，所以需要decode()一下，转换成字符串格式。</p>
+<p>使用带参数的GET方法取回URL:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib </span><br><span class="line">params =urllib.urlencode(&#123;<span class="string">&#x27;spam&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;eggs&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;bacon&#x27;</span>: <span class="number">0</span>&#125;)</span><br><span class="line">f =urllib.urlopen(<span class="string">&quot;http://www.musi-cal.com/cgi-bin/query?%s&quot;</span> % params)</span><br><span class="line"><span class="built_in">print</span> f.read()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>(2)发起POST请求</p>
+<p>urlopen()默认的访问方式是GET，当在urlopen()方法中传入data参数时，则会发起POST请求。注意：传递的data数据需要为bytes格式。timeout参数还可以设置超时时间，如果请求时间超出，那么就会抛出异常。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line">resp=request.urlopen(<span class="string">&#x27;http://httpbin.org/post&#x27;</span>,data=<span class="string">b&#x27;word=hello&#x27;</span>,timeout=<span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(resp.read().decode())</span><br><span class="line"><span class="comment">#使用带参数的POST方法：</span></span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line">params =urllib.urlencode(&#123;<span class="string">&#x27;spam&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;eggs&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;bacon&#x27;</span>: <span class="number">0</span>&#125;)</span><br><span class="line">f=urllib.urlopen(<span class="string">&quot;http://www.musi-cal.com/cgi-bin/query&quot;</span>, params)</span><br><span class="line"><span class="built_in">print</span> (f.read())</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3)添加Headers</p>
+<p>通过urllib发起的请求会有默认的一个Headers：”User-Agent”:”Python-urllib/3.6”，指明请求是由urllib发送的。</p>
+<p>所以遇到一些验证User-Agent的网站时，我们需要自定义Headers，而这需要借助于urllib.request中的Request对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line">url = <span class="string">&#x27;http://httpbin.org/get&#x27;</span></span><br><span class="line">headers = &#123;<span class="string">&#x27;user-agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0(Macintosh; Intel Mac OS X10_13_5)AppleWebKit/537.36 (KHTML, like Gecko)Chrome/66.0.3359.181 Safari/537.36&#x27;</span>&#125;</span><br><span class="line"><span class="comment"># 需要使用url和headers生成一个Request对象，然后将其传入urlopen方法</span></span><br><span class="line">req = request.Request(url, headers=headers)</span><br><span class="line">resp = request.urlopen(req)</span><br><span class="line"><span class="built_in">print</span>(resp.read().decode())</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(4)Request对象</p>
+<p>如上所示，urlopen()方法中不止可以传入字符串格式的url，也可以传入一个Request对象来扩展功能，Request对象如下所示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">urllib</span>.<span class="title">request</span>.<span class="title">Request</span>(<span class="params">url,data=<span class="literal">None</span>,headers&#123;&#125;,origin_req_host=<span class="literal">None</span>,unverifiable=<span class="literal">False</span>,method=<span class="literal">None</span></span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>构造Request对象必须传入url参数，data数据和headers都是可选的。</p>
+<p>最后，Request方法可以使用method参数来自由选择请求的方法，如PUT，DELETE等等，默认为GET。</p>
+<p>(5)添加Cookie</p>
+<p>为了在请求时能带上Cookie信息，我们需要重新构造一个opener。</p>
+<p>使用request.build_opener方法来进行构造opener，将我们想要传递的cookie配置到opener中，然后使用这个opener的open方法来发起请求。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> http <span class="keyword">import</span> cookiejar</span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request </span><br><span class="line">url = <span class="string">&#x27;https://www.baidu.com&#x27;</span> </span><br><span class="line"><span class="comment"># 创建一个cookiejar对象</span></span><br><span class="line">cookie = cookiejar.CookieJar()</span><br><span class="line"><span class="comment"># 使用HTTPCookieProcessor创建cookie处理器</span></span><br><span class="line">cookies = request.HTTPCookieProcessor(cookie) </span><br><span class="line"><span class="comment"># 并以它为参数创建Opener对象</span></span><br><span class="line">opener = request.build_opener(cookies) </span><br><span class="line"><span class="comment"># 使用这个opener来发起请求resp = opener.open(url) </span></span><br><span class="line"><span class="comment"># 查看之前的cookie对象，则可以看到访问百度获得的</span></span><br><span class="line">cookiefor i <span class="keyword">in</span> cookie:   </span><br><span class="line">	<span class="built_in">print</span>(i) </span><br></pre></td></tr></table></figure>
+
+
+
+<p>或者也可以把这个生成的opener使用install_opener方法来设置为全局的，之后使用urlopen方法发起请求时，都会带上这个cookie：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将这个opener设置为全局的</span></span><br><span class="line">openerrequest.install_opener(opener)</span><br><span class="line">resp = request.urlopen(url)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>(6)设置Proxy代理</strong></p>
+<p>使用爬虫来爬取数据的时候，常常需要使用代理来隐藏我们的真实IP。</p>
+<p>点击查看IP代理详细教程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request </span><br><span class="line">url = <span class="string">&#x27;http://httpbin.org/ip&#x27;</span></span><br><span class="line">proxy =&#123;<span class="string">&#x27;http&#x27;</span>:<span class="string">&#x27;218.18.232.26:80&#x27;</span>,<span class="string">&#x27;https&#x27;</span>:<span class="string">&#x27;218.18.232.26:80&#x27;</span>&#125; </span><br><span class="line"><span class="comment"># 创建代理处理器</span></span><br><span class="line">proxies = request.ProxyHandler(proxy)</span><br><span class="line"><span class="comment"># 创建opener对象</span></span><br><span class="line">opener = request.build_opener(proxies)</span><br><span class="line">resp = opener.<span class="built_in">open</span>(url)</span><br><span class="line"><span class="built_in">print</span>(resp.read().decode())</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>(7)下载数据到本地</strong></p>
+<p>在我们进行网络请求时常常需要保存图片或音频等数据到本地，一种方法是使用python的文件操作，将read()获取的数据保存到文件中。</p>
+<p>而urllib提供了一个urlretrieve()方法，可以简单的直接将请求获取的数据保存成文件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request url = <span class="string">&#x27;http://python.org/&#x27;</span></span><br><span class="line"><span class="comment"># urlretrieve()方法传入的第二个参数为文件保存的位置，以及文件名。</span></span><br><span class="line">request.urlretrieve(url, <span class="string">&#x27;python.html&#x27;</span>)</span><br><span class="line"><span class="comment">#注：urlretrieve()方法是Python2.x直接移植过来的方法，以后有可能在某个版本中弃用。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2.urllib.response</strong></p>
+<p>在使用urlopen()方法或者opener的open()方法发起请求后，获得的结果是一个response对象。这个对象有一些方法和属性，可以让我们对请求返回的结果进行一些处理。</p>
+<p>read()：获取响应返回的数据，只能使用一次。</p>
+<p>getcode()：获取服务器返回的状态码。</p>
+<p>getheaders()：获取返回响应的响应报头。</p>
+<p>geturl()：获取访问的url。</p>
+<hr>
+<p><strong>3.urllib.parse</strong></p>
+<p>urllib.parse是urllib中用来解析各种数据格式的模块。</p>
+<p>(1) urllib.parse.quote</p>
+<p>在url中，是只能使用ASCII中包含的字符的，也就是说，ASCII不包含的特殊字符，以及中文等字符都是不可以在url中使用的。而我们有时候又有将中文字符加入到url中的需求.urllib中可以使用quote()方法来实现这个功能。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line">keyword = <span class="string">&#x27;南北&#x27;</span></span><br><span class="line">parse.quote(keyword)</span><br><span class="line"><span class="comment">#&#x27;%E5%8D%97%E5%8C%97&#x27;如果需要将编码后的数据转换回来，可以使用unquote()方法。 </span></span><br><span class="line">parse.unquote(<span class="string">&#x27;%E5%8D%97%E5%8C%97&#x27;</span>)<span class="string">&#x27;南北&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>(2)urllib.parse.urlencode</p>
+<p>在访问url时，我们常常需要传递很多的url参数，而如果用字符串的方法去拼接url的话，会比较麻烦，所以urllib中提供了urlencode这个方法来拼接url参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line">params = &#123;<span class="string">&#x27;wd&#x27;</span>: <span class="string">&#x27;南北&#x27;</span>, <span class="string">&#x27;code&#x27;</span>: <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;height&#x27;</span>: <span class="string">&#x27;188&#x27;</span>&#125;</span><br><span class="line">parse.urlencode(params)</span><br><span class="line"><span class="string">&#x27;wd=%E5%8D%97%E5%8C%97&amp;code=1&amp;height=188&#x27;</span></span><br><span class="line">urllib.error</span><br></pre></td></tr></table></figure>
+
+<p>在urllib中主要设置了两个异常，一个是URLError，一个是HTTPError，HTTPError是URLError的子类。</p>
+<p>HTTPError还包含了三个属性：</p>
+<p>code：请求的状态码</p>
+<p>reason：错误的原因</p>
+<p>headers：响应的报头</p>
+<h3 id="由于标题有字符限制没有办法将主题说的更明白，就将错误信息贴了上去，望谅解"><a href="#由于标题有字符限制没有办法将主题说的更明白，就将错误信息贴了上去，望谅解" class="headerlink" title="由于标题有字符限制没有办法将主题说的更明白，就将错误信息贴了上去，望谅解"></a>由于标题有字符限制没有办法将主题说的更明白，就将错误信息贴了上去，望谅解</h3><h4 id="场景：使用Python进行斗鱼直播页面的爬取，爬取的url：https-www-douyu-com-当使用str-爬取的html字节码-encoding-’utf-8’-进行一个编码转换的时候报UnicodeDecodeError-‘utf-8’-codec-can’t-decode-byte-0x8b-in-position-1-invalid-start-byte这个错误。"><a href="#场景：使用Python进行斗鱼直播页面的爬取，爬取的url：https-www-douyu-com-当使用str-爬取的html字节码-encoding-’utf-8’-进行一个编码转换的时候报UnicodeDecodeError-‘utf-8’-codec-can’t-decode-byte-0x8b-in-position-1-invalid-start-byte这个错误。" class="headerlink" title="场景：使用Python进行斗鱼直播页面的爬取，爬取的url：https://www.douyu.com/  当使用str(爬取的html字节码,encoding=’utf-8’)进行一个编码转换的时候报UnicodeDecodeError:  ‘utf-8’ codec can’t decode byte 0x8b in position 1: invalid start  byte这个错误。"></a>场景：使用Python进行斗鱼直播页面的爬取，爬取的url：<a target="_blank" rel="noopener" href="https://www.douyu.com/">https://www.douyu.com/</a>  当使用str(爬取的html字节码,encoding=’utf-8’)进行一个编码转换的时候报UnicodeDecodeError:  ‘utf-8’ codec can’t decode byte 0x8b in position 1: invalid start  byte这个错误。</h4><p><strong>代码示例</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Spilder</span>():</span></span><br><span class="line">	<span class="comment">#斗鱼url</span></span><br><span class="line">    url=<span class="string">&#x27;https://www.douyu.com/&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__fetch_content</span>(<span class="params">self</span>):</span></span><br><span class="line">        r = request.urlopen(Spilder.url)</span><br><span class="line">        htmls = r.read()    <span class="comment">#获取字节码（html）</span></span><br><span class="line">        <span class="built_in">print</span>(htmls)</span><br><span class="line">        htmls = <span class="built_in">str</span>(htmls, encoding=<span class="string">&#x27;utf-8&#x27;</span>)   </span><br><span class="line">        <span class="built_in">print</span>(htmls)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">go</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.__fetch_content()</span><br><span class="line"></span><br><span class="line">spilder=Spilder()</span><br><span class="line">spilder.go()</span><br><span class="line"><span class="number">123456789101112131415161718</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>首先我们观察第一个print输出的字节码可以看到它是以”b’\x1f\x8b\x08”开头的 ，说明它是gzip压缩过的数据，这也是报错的原因，所以我们需要对我们接收的字节码进行一个解码操作。修改如下：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="keyword">import</span> gzip</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Spilder</span>():</span></span><br><span class="line"></span><br><span class="line">    url=<span class="string">&#x27;https://www.douyu.com/&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__fetch_content</span>(<span class="params">self</span>):</span></span><br><span class="line">        r = request.urlopen(Spilder.url)</span><br><span class="line">        htmls = r.read()</span><br><span class="line">        buff = BytesIO(htmls)</span><br><span class="line">        f = gzip.GzipFile(fileobj=buff)</span><br><span class="line">        htmls = f.read().decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(htmls)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">go</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.__fetch_content()</span><br><span class="line"></span><br><span class="line">spilder=Spilder()</span><br><span class="line">spilder.go()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/07/23/urllib%E2%80%94%E5%9F%BA%E7%A1%80/" title="urllib—基础" target="_blank" rel="external">http://example.com/2021/07/23/urllib—基础/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/yoacsama" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/yoacsama" target="_blank"><span class="text-dark">Yo4c_5ama</span><small class="ml-1x">Hacker</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/07/23/2020-2021%E5%A4%A7%E5%88%9B%E6%A1%86%E6%9E%B6Fake-comment-detection/" title="2020-2021大创框架Fake_comment_detection"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/07/23/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" title="正则表达式—基础语法"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yoacsama" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>正则表达式—基础语法 | Hexo</title>
+  <meta name="description" content="正则表达式作者：Yoac      时间：2020&#x2F;11&#x2F;12 1.准备工作1.安装re模块(pip)一般来说python自带re库 2.学会使用re.match re.fandall re.search 以及flag等123456789101112131415#代码import repassword1&#x3D;re.findall(&amp;#x27;aaa&amp;#x27; , &amp;#x27;aaa asd AAa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式—基础语法">
+<meta property="og:url" content="http://example.com/2021/07/23/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="正则表达式作者：Yoac      时间：2020&#x2F;11&#x2F;12 1.准备工作1.安装re模块(pip)一般来说python自带re库 2.学会使用re.match re.fandall re.search 以及flag等123456789101112131415#代码import repassword1&#x3D;re.findall(&amp;#x27;aaa&amp;#x27; , &amp;#x27;aaa asd AAa">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-22T23:21:16.000Z">
+<meta property="article:modified_time" content="2021-07-22T23:39:05.040Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="本篇针对正则表达式基础语法进行简要总结归纳">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://example.com/2021/07/23/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/yoacsama" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Yo4c_5ama</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Hacker</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Chengdu, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">Books</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yoacsama" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AC%E7%AF%87%E4%B8%BAFake-comment-detection%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%A4%A7%E5%88%9B%E7%94%B3%E8%AF%B7%E4%B9%A6%E6%A1%86%E6%9E%B6/" rel="tag">本篇为Fake_comment_detection项目的大创申请书框架</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AC%E7%AF%87%E9%92%88%E5%AF%B9urllib%E8%BF%9B%E8%A1%8C%E5%9F%BA%E7%A1%80%E8%AE%B2%E8%A7%A3/" rel="tag">本篇针对urllib进行基础讲解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%AC%E7%AF%87%E9%92%88%E5%AF%B9%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%BF%9B%E8%A1%8C%E7%AE%80%E8%A6%81%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/" rel="tag">本篇针对正则表达式基础语法进行简要总结归纳</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/%E6%9C%AC%E7%AF%87%E4%B8%BAFake-comment-detection%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%A4%A7%E5%88%9B%E7%94%B3%E8%AF%B7%E4%B9%A6%E6%A1%86%E6%9E%B6/" style="font-size: 13px;">本篇为Fake_comment_detection项目的大创申请书框架</a> <a href="/tags/%E6%9C%AC%E7%AF%87%E9%92%88%E5%AF%B9urllib%E8%BF%9B%E8%A1%8C%E5%9F%BA%E7%A1%80%E8%AE%B2%E8%A7%A3/" style="font-size: 13px;">本篇针对urllib进行基础讲解</a> <a href="/tags/%E6%9C%AC%E7%AF%87%E9%92%88%E5%AF%B9%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%BF%9B%E8%A1%8C%E7%AE%80%E8%A6%81%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/" style="font-size: 13px;">本篇针对正则表达式基础语法进行简要总结归纳</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/23/2020-2021%E5%A4%A7%E5%88%9B%E6%A1%86%E6%9E%B6Fake-comment-detection/" class="title">2020-2021大创框架Fake_comment_detection</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-22T23:23:42.000Z" itemprop="datePublished">2021-07-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/23/urllib%E2%80%94%E5%9F%BA%E7%A1%80/" class="title">urllib—基础</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-22T23:22:36.000Z" itemprop="datePublished">2021-07-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/23/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="title">正则表达式—基础语法</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-22T23:21:16.000Z" itemprop="datePublished">2021-07-23</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/22/My-First-Blog/" class="title">My First Blog</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-22T15:23:51.000Z" itemprop="datePublished">2021-07-22</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/22/hello-world/" class="title">Hello World</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-22T15:19:53.344Z" itemprop="datePublished">2021-07-22</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-正则表达式—基础语法" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      正则表达式—基础语法
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/07/23/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="article-date">
+	  <time datetime="2021-07-22T23:21:16.000Z" itemprop="datePublished">2021-07-23</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E6%9C%AC%E7%AF%87%E9%92%88%E5%AF%B9%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%BF%9B%E8%A1%8C%E7%AE%80%E8%A6%81%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/" rel="tag">本篇针对正则表达式基础语法进行简要总结归纳</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/07/23/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a><strong>正则表达式</strong></h1><p>作者：Yoac      时间：2020/11/12</p>
+<h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h2><h5 id="1-安装re模块-pip"><a href="#1-安装re模块-pip" class="headerlink" title="1.安装re模块(pip)"></a>1.安装re模块(pip)</h5><p>一般来说python自带re库</p>
+<h5 id="2-学会使用re-match-re-fandall-re-search-以及flag等"><a href="#2-学会使用re-match-re-fandall-re-search-以及flag等" class="headerlink" title="2.学会使用re.match re.fandall re.search 以及flag等"></a>2.学会使用re.match re.fandall re.search 以及flag等</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">password1=re.findall(<span class="string">&#x27;aaa&#x27;</span> , <span class="string">&#x27;aaa asd AAa ds&#x27;</span>,flags=re.I)</span><br><span class="line">password2=re.match(<span class="string">&#x27;aaa&#x27;</span> , <span class="string">&#x27;aaa asd AAa ds&#x27;</span>,flags=re.I)</span><br><span class="line">password3=re.search(<span class="string">&#x27;aaa&#x27;</span> , <span class="string">&#x27;aaa asd AAa ds&#x27;</span>,flags=re.I)</span><br><span class="line"><span class="built_in">print</span>(password1)</span><br><span class="line"><span class="built_in">print</span>(password2)</span><br><span class="line"><span class="built_in">print</span>(password3)</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line">[<span class="string">&#x27;aaa&#x27;</span>, <span class="string">&#x27;AAa&#x27;</span>]</span><br><span class="line">&lt;re.Match <span class="built_in">object</span>; span=(<span class="number">0</span>, <span class="number">3</span>), match=<span class="string">&#x27;aaa&#x27;</span>&gt;</span><br><span class="line">&lt;re.Match <span class="built_in">object</span>; span=(<span class="number">0</span>, <span class="number">3</span>), match=<span class="string">&#x27;aaa&#x27;</span>&gt;</span><br><span class="line"></span><br><span class="line">Process finished <span class="keyword">with</span> exit code <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-正则表达式"><a href="#2-正则表达式" class="headerlink" title="2.正则表达式"></a>2.正则表达式</h2><h4 id="1-匹配单个字符与数字"><a href="#1-匹配单个字符与数字" class="headerlink" title="1.匹配单个字符与数字"></a>1.匹配单个字符与数字</h4><p>.                                 匹配除换行符以外的任意字符</p>
+<p>[0123456789]          []是字符集合，表示匹配[]中所包含的任意一个字符</p>
+<p>​      如：[a-z]             匹配任意小写字母</p>
+<p>​              [0-9a-zA-Z_] 匹配任意的数字、字母和下划线</p>
+<p>[^yoac]                      匹配除了yoac这几个字母以外的所有字符（^称为脱字符，表示不匹配集合中的字符)</p>
+<p>\d                               匹配所有的数字效果同[0-9]</p>
+<p>\D                              匹配非数字字符，效果同 [ ^0-9]</p>
+<p>\w                              匹配数字、字母和下划线</p>
+<p>\W                             匹配非数字、字母和下划线</p>
+<p>\s                               匹配任意的空白符（空格，换行，回车，换页，制表）</p>
+<p>\S                               匹配非任意的空白符（空格，换行，回车，换页，制表）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码</span></span><br><span class="line"><span class="built_in">print</span>(re.search(<span class="string">&#x27;.&#x27;</span>,<span class="string">&#x27;yoac is a good student&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;[^0-9]&#x27;</span>,<span class="string">&#x27;yoac is a good student 666&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">&lt;re.Match <span class="built_in">object</span>; span=(<span class="number">0</span>, <span class="number">1</span>), match=<span class="string">&#x27;y&#x27;</span>&gt;</span><br><span class="line">[<span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;i&#x27;</span>, <span class="string">&#x27;s&#x27;</span>, <span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;g&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;s&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27;u&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27; &#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-锚字符（边界字符）"><a href="#2-锚字符（边界字符）" class="headerlink" title="2.锚字符（边界字符）"></a>2.锚字符（边界字符）</h4><p>^                                行首匹配，和[]里的不是一个意思</p>
+<p>$                                行尾匹配</p>
+<p>\A                               匹配字符串开始，只匹配整个字符串的开头，即使在re.M(多行匹配)模式下也不会匹配其他行的行首</p>
+<p>\Z                               匹配字符串结束可参考\A</p>
+<p>\b                               匹配一个单词的边界（单词和空格的位置）</p>
+<p>\B                               匹配一个非单词的边界</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码</span></span><br><span class="line"><span class="built_in">print</span>(re.search(<span class="string">&#x27;^yoacsama&#x27;</span>,<span class="string">&#x27;yoac is a good student 666\nyoac 666&#x27;</span>,re.M))</span><br><span class="line"><span class="built_in">print</span>(re.search(<span class="string">&#x27;666$&#x27;</span>,<span class="string">&#x27;yoac is a good student 666\nyoac&#x27;</span>,re.M))</span><br><span class="line"><span class="built_in">print</span>(re.search(<span class="string">&#x27;\Ayoacsama&#x27;</span>,<span class="string">&#x27;yoac is a good student 666\nyoac 666&#x27;</span>,re.M))</span><br><span class="line"><span class="built_in">print</span>(re.search(<span class="string">&#x27;666\Z&#x27;</span>,<span class="string">&#x27;yoac is a good student 666\nyoac&#x27;</span>,re.M))</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">&lt;re.Match <span class="built_in">object</span>; span=(<span class="number">27</span>, <span class="number">35</span>), match=<span class="string">&#x27;yoacsama&#x27;</span>&gt;</span><br><span class="line">&lt;re.Match <span class="built_in">object</span>; span=(<span class="number">23</span>, <span class="number">26</span>), match=<span class="string">&#x27;666&#x27;</span>&gt;</span><br><span class="line"><span class="literal">None</span></span><br><span class="line"><span class="literal">None</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-匹配多个字符"><a href="#3-匹配多个字符" class="headerlink" title="3.匹配多个字符"></a>3.匹配多个字符</h4><h6 id="说明：下方x、y、z均为假设的普通字符，不是正则表达式的元字符"><a href="#说明：下方x、y、z均为假设的普通字符，不是正则表达式的元字符" class="headerlink" title="说明：下方x、y、z均为假设的普通字符，不是正则表达式的元字符"></a>说明：下方x、y、z均为假设的普通字符，不是正则表达式的元字符</h6><p>(xyz)        匹配小括号内的xyz（作为一个整体）</p>
+<p>x？          匹配0个或者1个x</p>
+<p>x*            匹配0个或者任意多个x (.* 匹配0个或者任意多个字符除换行符)</p>
+<p>x+            匹配至少一个x</p>
+<p>x{n}         匹配确定的n个x（n为非负整数）</p>
+<p>x{n,}         匹配至少n个x</p>
+<p>x{n,m}     匹配至少n个最多m个x。注意：n&lt;=m</p>
+<p>x|y           |表示或，匹配x或yadadsasd</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码</span></span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;yoac&#x27;</span>,<span class="string">&#x27;yoac is yoacsama&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;a?&#x27;</span>,<span class="string">&#x27;aaabaa&#x27;</span>))<span class="comment">#非贪婪匹配</span></span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;a*&#x27;</span>,<span class="string">&#x27;aaabaa&#x27;</span>))<span class="comment">#贪婪匹配</span></span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;.*&#x27;</span>,<span class="string">&#x27;yoac is yoacsama&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;a+&#x27;</span>,<span class="string">&#x27;aaabaa&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;a&#123;3&#125;&#x27;</span>,<span class="string">&#x27;aaabaa&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;a&#123;2,&#125;&#x27;</span>,<span class="string">&#x27;aaabaa&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;a&#123;1,2&#125;&#x27;</span>,<span class="string">&#x27;aaabaa&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;((y|Y)oac)&#x27;</span>,<span class="string">&#x27;yoac--Yoac&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">[<span class="string">&#x27;yoac&#x27;</span>, <span class="string">&#x27;yoac&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;aaa&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;aa&#x27;</span>, <span class="string">&#x27;&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;yoac is yoacsama&#x27;</span>, <span class="string">&#x27;&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;aaa&#x27;</span>, <span class="string">&#x27;aa&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;aaa&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;aaa&#x27;</span>, <span class="string">&#x27;aa&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;aa&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;aa&#x27;</span>]</span><br><span class="line">[(<span class="string">&#x27;yoac&#x27;</span>, <span class="string">&#x27;y&#x27;</span>), (<span class="string">&#x27;Yoac&#x27;</span>, <span class="string">&#x27;Y&#x27;</span>)]</span><br></pre></td></tr></table></figure>
+
+<h5 id="例题：提取yoac…-man"><a href="#例题：提取yoac…-man" class="headerlink" title="例题：提取yoac…..man"></a>例题：提取yoac…..man</h5><p>str=’yoac is a good man!yoac is a nice man!’</p>
+<h4 id="4-特殊"><a href="#4-特殊" class="headerlink" title="4.特殊"></a>4.特殊</h4><p>*？  +？  x？    最小匹配，通常是尽可能多的匹配 ，可以解决贪婪匹配</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码</span></span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;//*.*?/*/&#x27;</span>,<span class="string">&#x27;/* part1 */   /*  part2  */&#x27;</span>))</span><br><span class="line"><span class="built_in">str</span>=<span class="string">&#x27;yoac is a good man!yoac is a nice man!&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(re.findall(<span class="string">&#x27;yoac.*?man&#x27;</span>,<span class="built_in">str</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">[<span class="string">&#x27;/* part1 */&#x27;</span>, <span class="string">&#x27;/*  part2  */&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;yoac is a good man&#x27;</span>, <span class="string">&#x27;yoac is a nice man&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>(?:x)      类似（xyz），但不表示一个组</p>
+<h5 id="提问：如何利用正则表达式来判断电话号码？"><a href="#提问：如何利用正则表达式来判断电话号码？" class="headerlink" title="提问：如何利用正则表达式来判断电话号码？"></a>提问：如何利用正则表达式来判断电话号码？</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">checkPhone</span>(<span class="params"><span class="built_in">str</span></span>):</span></span><br><span class="line">    <span class="comment">#13872777914(yoac&#x27;s telephone number)</span></span><br><span class="line">    pat =<span class="string">&#x27;1[35789]\d&#123;9&#125;$&#x27;</span><span class="comment">#\d&#123;9&#125;$以9个数结尾</span></span><br><span class="line">    res=re.match(pat,<span class="built_in">str</span>)</span><br><span class="line">    <span class="built_in">print</span>(res)</span><br><span class="line">checkPhone(<span class="string">&#x27;13872777914&#x27;</span>)</span><br><span class="line">checkPhone(<span class="string">&#x27;1366666666&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">&lt;re.Match <span class="built_in">object</span>; span=(<span class="number">0</span>, <span class="number">11</span>), match=<span class="string">&#x27;13872777914&#x27;</span>&gt;</span><br><span class="line"><span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-re模块深入"><a href="#3-re模块深入" class="headerlink" title="3.re模块深入"></a>3.re模块深入</h2><h4 id="1-字符串切割-re-split"><a href="#1-字符串切割-re-split" class="headerlink" title="1.字符串切割 re.split"></a>1.字符串切割 re.split</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码</span></span><br><span class="line">str2=<span class="string">&#x27;yoac       is a good man&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(str2.split(<span class="string">&#x27; &#x27;</span>))<span class="comment">#原来方法</span></span><br><span class="line"><span class="built_in">print</span>(re.split(<span class="string">&quot; +&quot;</span>,str2))<span class="comment">#正则</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">[<span class="string">&#x27;yoac&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;is&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;good&#x27;</span>, <span class="string">&#x27;man&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;yoac&#x27;</span>, <span class="string">&#x27;is&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;good&#x27;</span>, <span class="string">&#x27;man&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-re-finditer"><a href="#2-re-finditer" class="headerlink" title="2.re.finditer"></a>2.re.finditer</h4><p>功能：与findall类似，扫描整个字符串，但返回的是一个迭代器（iter）（将可迭代对象转化成迭代器控制内存时候好使）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码</span></span><br><span class="line">str3=<span class="string">&#x27;yoac is a good man！yoac is a good man！yoac is a good man&#x27;</span></span><br><span class="line">d=re.finditer(<span class="string">&#x27;(yoac)&#x27;</span>,str3)</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        i=<span class="built_in">next</span>(d)</span><br><span class="line">        <span class="built_in">print</span>(d)</span><br><span class="line">    <span class="keyword">except</span> StopIteration <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">&lt;callable_iterator <span class="built_in">object</span> at <span class="number">0x00000239C787B430</span>&gt;</span><br><span class="line">&lt;callable_iterator <span class="built_in">object</span> at <span class="number">0x00000239C787B430</span>&gt;</span><br><span class="line">&lt;callable_iterator <span class="built_in">object</span> at <span class="number">0x00000239C787B430</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-字符串的替换和修改"><a href="#3-字符串的替换和修改" class="headerlink" title="3.字符串的替换和修改"></a>3.字符串的替换和修改</h4><h5 id="re-sub-pattern-reql-string-count-0-flags-0"><a href="#re-sub-pattern-reql-string-count-0-flags-0" class="headerlink" title="re.sub(pattern, reql, string, count=0, flags=0)"></a>re.sub(pattern, reql, string, count=0, flags=0)</h5><h5 id="re-subn-pattern-reql-string-count-0-flags-0"><a href="#re-subn-pattern-reql-string-count-0-flags-0" class="headerlink" title="re.subn(pattern, reql, string, count=0, flags=0)"></a>re.subn(pattern, reql, string, count=0, flags=0)</h5><h6 id="pattern-正则"><a href="#pattern-正则" class="headerlink" title="pattern: 正则"></a>pattern: 正则</h6><h6 id="reql：指定的用来替换的字符串"><a href="#reql：指定的用来替换的字符串" class="headerlink" title="reql：指定的用来替换的字符串"></a>reql：指定的用来替换的字符串</h6><h6 id="string-目标字符串"><a href="#string-目标字符串" class="headerlink" title="string:目标字符串"></a>string:目标字符串</h6><h6 id="count-最多替换的次数（如不指定，替换所有的）"><a href="#count-最多替换的次数（如不指定，替换所有的）" class="headerlink" title="count:最多替换的次数（如不指定，替换所有的）"></a>count:最多替换的次数（如不指定，替换所有的）</h6><p>前者返回一个字符串，后者返回一个元组（前一个元素是被替换的字符串，后一个是替换的次数）</p>
+<p>两者类型不同前者为str 后者为tuple（元组）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码</span></span><br><span class="line"><span class="built_in">print</span>(re.sub(<span class="string">&quot;(good)&quot;</span>,<span class="string">&#x27;nice&#x27;</span>, str4,count=<span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(re.sub(<span class="string">&quot;(good)&quot;</span>,<span class="string">&#x27;nice&#x27;</span>, str4)))</span><br><span class="line"><span class="built_in">print</span>(re.subn(<span class="string">&quot;(good)&quot;</span>,<span class="string">&#x27;nice&#x27;</span>, str4,count=<span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(re.subn(<span class="string">&quot;(good)&quot;</span>,<span class="string">&#x27;nice&#x27;</span>, str4)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">yoac <span class="keyword">is</span> a nice  nice good man</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">str</span>&#x27;&gt;</span></span><br><span class="line"><span class="class">(<span class="params"><span class="string">&#x27;yoac is a nice  nice good man&#x27;</span>, <span class="number">2</span></span>)</span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> &#x27;<span class="title">tuple</span>&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-分组（最强大的功能）"><a href="#4-分组（最强大的功能）" class="headerlink" title="4.分组（最强大的功能）"></a>4.分组（最强大的功能）</h4><p>除了简单的判断是否匹配之外，正则表达式还有提取子串的功能，用（）表示的就是提取分组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码</span></span><br><span class="line">str5=<span class="string">&#x27;010-53247654&#x27;</span></span><br><span class="line">m=re.match(<span class="string">&#x27;(?P&lt;first&gt;\d&#123;3&#125;)-(?P&lt;last&gt;\d&#123;8&#125;)&#x27;</span>, str5)</span><br><span class="line"><span class="comment">#使用序号获取对应组的信息，group（0）代表原始字符串</span></span><br><span class="line"><span class="built_in">print</span>(m.group(<span class="number">0</span>))</span><br><span class="line"><span class="built_in">print</span>(m.group(<span class="number">1</span>))</span><br><span class="line"><span class="built_in">print</span>(m.group(<span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(m.group(<span class="string">&#x27;first&#x27;</span>))<span class="comment">#?P&lt;&gt;可以取名字</span></span><br><span class="line"><span class="built_in">print</span>(m.group(<span class="string">&#x27;last&#x27;</span>))</span><br><span class="line"><span class="comment">#查看匹配的各组的情况</span></span><br><span class="line"><span class="built_in">print</span>(m.groups())</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">010-<span class="number">53247654</span></span><br><span class="line">010</span><br><span class="line"><span class="number">53247654</span></span><br><span class="line">010</span><br><span class="line"><span class="number">53247654</span></span><br><span class="line">(<span class="string">&#x27;010&#x27;</span>, <span class="string">&#x27;53247654&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-编译"><a href="#4-编译" class="headerlink" title="4.编译"></a>4.编译</h4><p>当我们使用正则表达式时，re模块会干两件事</p>
+<p>1.编译正则表达式，如果其本身不合法，则会报错</p>
+<p>2.用编译后的正则表达式去匹配对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#代码</span></span><br><span class="line">pat1=<span class="string">&#x27;1(([35789]\d)|(47))\d&#123;8&#125;$&#x27;</span></span><br><span class="line">re_telephone = re.<span class="built_in">compile</span>(pat1)<span class="comment">#编译成正则对象</span></span><br><span class="line"><span class="built_in">print</span>(re_telephone.match(<span class="string">&quot;13600000000&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(re.match(pat1,<span class="string">&#x27;13600000000&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">re.search()</span></span><br><span class="line"><span class="string">re.findall()</span></span><br><span class="line"><span class="string">re.finditer()</span></span><br><span class="line"><span class="string">re.match()</span></span><br><span class="line"><span class="string">re.sub()</span></span><br><span class="line"><span class="string">re.subn()</span></span><br><span class="line"><span class="string">re.split()</span></span><br><span class="line"><span class="string">都可以这样使用，不需要再传入正则表达式参数</span></span><br><span class="line"><span class="string">以前时re的模块调用，现在时re的对象调用！！！！</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">&lt;re.Match <span class="built_in">object</span>; span=(<span class="number">0</span>, <span class="number">11</span>), match=<span class="string">&#x27;13600000000&#x27;</span>&gt;</span><br><span class="line">&lt;re.Match <span class="built_in">object</span>; span=(<span class="number">0</span>, <span class="number">11</span>), match=<span class="string">&#x27;13600000000&#x27;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2021/07/23/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" title="正则表达式—基础语法" target="_blank" rel="external">http://example.com/2021/07/23/正则表达式—基础语法/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/yoacsama" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/yoacsama" target="_blank"><span class="text-dark">Yo4c_5ama</span><small class="ml-1x">Hacker</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/07/23/urllib%E2%80%94%E5%9F%BA%E7%A1%80/" title="urllib—基础"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/07/22/My-First-Blog/" title="My First Blog"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yoacsama" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
