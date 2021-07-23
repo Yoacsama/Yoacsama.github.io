@@ -17,20 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>My First Blog | Hexo</title>
-  <meta name="description" content="My First BlogI can write a blog now!">
+  <title>SQLI常用方法与步骤总结归纳 | Hexo</title>
+  <meta name="description" content="SQLI常用方法与步骤总结归纳[toc] 步骤与流程​    ⒈确定网页为动态加载页面 ​    ⒉确定网页使用的是GET还是POST ​    ⒊找到注入点 ​    ⒋判读注入类型（数字型or字符型） ​    ⒌判断闭合符（常见：‘ 、“、 ’）、”）等） ​    ⒍联合语句查询 常见问题与解决方法​    进行sql语句注入时常常会遇到很多问题，一下归纳了常见问题及其解决方案  如何判断">
 <meta property="og:type" content="article">
-<meta property="og:title" content="My First Blog">
-<meta property="og:url" content="http://example.com/2021/07/22/My-First-Blog/index.html">
+<meta property="og:title" content="SQLI常用方法与步骤总结归纳">
+<meta property="og:url" content="http://example.com/2021/07/23/SQLI%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E4%B8%8E%E6%AD%A5%E9%AA%A4%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="My First BlogI can write a blog now!">
+<meta property="og:description" content="SQLI常用方法与步骤总结归纳[toc] 步骤与流程​    ⒈确定网页为动态加载页面 ​    ⒉确定网页使用的是GET还是POST ​    ⒊找到注入点 ​    ⒋判读注入类型（数字型or字符型） ​    ⒌判断闭合符（常见：‘ 、“、 ’）、”）等） ​    ⒍联合语句查询 常见问题与解决方法​    进行sql语句注入时常常会遇到很多问题，一下归纳了常见问题及其解决方案  如何判断">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-07-22T15:23:51.000Z">
-<meta property="article:modified_time" content="2021-07-22T15:36:50.254Z">
+<meta property="article:published_time" content="2021-07-23T13:37:25.000Z">
+<meta property="article:modified_time" content="2021-07-23T13:38:27.914Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="sql注入">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2021/07/22/My-First-Blog/index.html">
+  <link rel="canonical" href="http://example.com/2021/07/23/SQLI%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E4%B8%8E%E6%AD%A5%E9%AA%A4%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -345,16 +346,25 @@
 
   
   
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">Catalogue</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SQLI%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E4%B8%8E%E6%AD%A5%E9%AA%A4%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3"><span class="toc-number">1.</span> <span class="toc-text">SQLI常用方法与步骤总结归纳</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%8E%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">步骤与流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">常见问题与解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">如何判断注入类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0%E6%95%B0%E5%AD%97%E5%9E%8B"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">①数字型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1%E5%AD%97%E7%AC%A6%E5%9E%8B"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">②字符型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E9%97%AD%E5%90%88%E7%AC%A6"><span class="toc-number">1.2.2.</span> <span class="toc-text">如何判断闭合符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%E4%B8%8E%E5%BB%B6%E6%97%B6%E7%9B%B2%E6%B3%A8"><span class="toc-number">1.2.3.</span> <span class="toc-text">布尔盲注与延时盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">①布尔盲注</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1%E5%BB%B6%E6%97%B6%E7%9B%B2%E6%B3%A8"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">②延时盲注</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sqlmap%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.4.</span> <span class="toc-text">sqlmap的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%BA%93%E5%90%8D"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">查询库名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E5%BA%93%E5%90%8D%E6%9F%A5%E8%A1%A8%E5%90%8D"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">指定库名查表名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E5%BA%93%E5%90%8D%E3%80%81%E8%A1%A8%E5%90%8D%E6%9F%A5%E5%88%97%E5%90%8D"><span class="toc-number">1.2.4.3.</span> <span class="toc-text">指定库名、表名查列名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96sql-shell"><span class="toc-number">1.2.4.4.</span> <span class="toc-text">获取sql-shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AE%B0%E5%BD%95"><span class="toc-number">1.2.4.5.</span> <span class="toc-text">查记录</span></a></li></ol></li></ol></li></ol></li></ol>
+    </nav>
+  </div>
+</aside>
+
 <main class="main" role="main">
   <div class="content">
-  <article id="post-My-First-Blog" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-SQLI常用方法与步骤总结归纳" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      My First Blog
+      SQLI常用方法与步骤总结归纳
     </h1>
   
 
@@ -362,22 +372,56 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2021/07/22/My-First-Blog/" class="article-date">
-	  <time datetime="2021-07-22T15:23:51.000Z" itemprop="datePublished">2021-07-22</time>
+	<a href="/2021/07/23/SQLI%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E4%B8%8E%E6%AD%A5%E9%AA%A4%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/" class="article-date">
+	  <time datetime="2021-07-23T13:37:25.000Z" itemprop="datePublished">2021-07-23</time>
 	</a>
 </span>
         
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/sql%E6%B3%A8%E5%85%A5/" rel="tag">sql注入</a>
+  </span>
+
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/07/22/My-First-Blog/#comments" class="article-comment-link">Comments</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/07/23/SQLI%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E4%B8%8E%E6%AD%A5%E9%AA%A4%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/#comments" class="article-comment-link">Comments</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="My-First-Blog"><a href="#My-First-Blog" class="headerlink" title="My First Blog"></a>My First Blog</h1><p>I can write a blog now!</p>
+        <h1 id="SQLI常用方法与步骤总结归纳"><a href="#SQLI常用方法与步骤总结归纳" class="headerlink" title="SQLI常用方法与步骤总结归纳"></a>SQLI常用方法与步骤总结归纳</h1><p>[toc]</p>
+<h2 id="步骤与流程"><a href="#步骤与流程" class="headerlink" title="步骤与流程"></a>步骤与流程</h2><p>​    ⒈确定网页为动态加载页面</p>
+<p>​    ⒉确定网页使用的是GET还是POST</p>
+<p>​    ⒊找到注入点</p>
+<p>​    ⒋判读注入类型（数字型or字符型）</p>
+<p>​    ⒌判断闭合符（常见：<strong>‘</strong> 、<strong>“</strong>、 <strong>’）</strong>、<strong>”）</strong>等）</p>
+<p>​    ⒍联合语句查询</p>
+<h2 id="常见问题与解决方法"><a href="#常见问题与解决方法" class="headerlink" title="常见问题与解决方法"></a>常见问题与解决方法</h2><p>​    进行sql语句注入时常常会遇到很多问题，一下归纳了常见问题及其解决方案</p>
+<ul>
+<li><h3 id="如何判断注入类型"><a href="#如何判断注入类型" class="headerlink" title="如何判断注入类型"></a>如何判断注入类型</h3><h4 id="①数字型"><a href="#①数字型" class="headerlink" title="①数字型"></a>①数字型</h4><p>对于 ‘?id=1’ 查询出的结果A，与’?id=2’查询出的结果B：若对于’?id=2-1’查询得到的结果C有，C=A。则可知注入类型为数字型</p>
+<h4 id="②字符型"><a href="#②字符型" class="headerlink" title="②字符型"></a>②字符型</h4><p>对于 ‘?id=1’ 查询出的结果A，与’?id=2’查询出的结果B：若对于’?id=2-1’查询得到的结果C有，C=B。则可知注入类型为字符型</p>
+</li>
+<li><h3 id="如何判断闭合符"><a href="#如何判断闭合符" class="headerlink" title="如何判断闭合符"></a>如何判断闭合符</h3><p>可以直接使用’?id=1*** –+’判断（’***’为将要测试的闭合符，当页面返回正常时，即为所求闭合符）</p>
+</li>
+<li><h3 id="布尔盲注与延时盲注"><a href="#布尔盲注与延时盲注" class="headerlink" title="布尔盲注与延时盲注"></a>布尔盲注与延时盲注</h3><h4 id="①布尔盲注"><a href="#①布尔盲注" class="headerlink" title="①布尔盲注"></a>①布尔盲注</h4><p><strong>情形</strong>：网页当查询到结果时，显示页面A，否则显示页面B。此时可以使用布尔盲注。</p>
+<p><strong>原理</strong>：首先查询到一个有结果的值，用AND连接想要的查询，这样就可以判断语句是否正确。若语句正确则返回’true’,反之为’false’。 </p>
+<p><strong>举例</strong>：例如要查找数据库名称的长度，可以用 1 and length(table_name) = 8，如果返回了页面A，说明表名长度为8，若返回页面B，则可知其长度不为8。而对于其中的每一位，都可以使用 ascii(substr(table_name,n,1))=a 查询，其中，n表示第几个字符，a表示对应的 ascii码。通常情况下可以自行编写python脚本进行自动盲注！</p>
+<h4 id="②延时盲注"><a href="#②延时盲注" class="headerlink" title="②延时盲注"></a>②延时盲注</h4><p><strong>情形</strong>：无论是否查询到结果，网页都只显示相同的内容。</p>
+<p><strong>原理</strong>：如果and前面的语句为假，后面的语句就不执行，比如 1 and sleep(3) 会休眠3秒，0 and sleep(3)就不会休眠。因此可用作判断闭合符。当加载圆圈转3s时，可知闭合符即为所求。</p>
+</li>
+<li><h3 id="sqlmap的使用"><a href="#sqlmap的使用" class="headerlink" title="sqlmap的使用"></a>sqlmap的使用</h3><p>sqlmap需要python支持，新版python3也支持，老版本建议python2.7</p>
+<h4 id="查询库名"><a href="#查询库名" class="headerlink" title="查询库名"></a>查询库名</h4><p>打开cmd，切换当前目录到D:\SQLMAP\</p>
+<p>执行命令：python sqlmap.py -u “注入点” –current-db</p>
+<h4 id="指定库名查表名"><a href="#指定库名查表名" class="headerlink" title="指定库名查表名"></a>指定库名查表名</h4><p>执行命令：python sqlmap.py -u “注入点” -D 库名 –tables</p>
+<h4 id="指定库名、表名查列名"><a href="#指定库名、表名查列名" class="headerlink" title="指定库名、表名查列名"></a>指定库名、表名查列名</h4><p>执行命令：python sqlmap.py -u “注入点” -D 库名 -T 表名 –columns</p>
+<h4 id="获取sql-shell"><a href="#获取sql-shell" class="headerlink" title="获取sql-shell"></a>获取sql-shell</h4><p>执行命令：python sqlmap.py -u “注入点” –sql-shell</p>
+<p>获得sql-shell提示符</p>
+<h4 id="查记录"><a href="#查记录" class="headerlink" title="查记录"></a>查记录</h4><p>前面步骤获取到表结构后，在sql-shell提示符后面输入SQL语句查询记录</p>
+</li>
+</ul>
 
       
     </div>
@@ -387,7 +431,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2021/07/22/My-First-Blog/" title="My First Blog" target="_blank" rel="external">http://example.com/2021/07/22/My-First-Blog/</a>
+      <a href="http://example.com/2021/07/23/SQLI%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E4%B8%8E%E6%AD%A5%E9%AA%A4%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/" title="SQLI常用方法与步骤总结归纳" target="_blank" rel="external">http://example.com/2021/07/23/SQLI常用方法与步骤总结归纳/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -433,15 +477,20 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2021/07/23/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" title="正则表达式—基础语法"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2021/07/22/hello-world/" title="Hello World"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/07/23/v2ray%E6%A2%AF%E5%AD%90%E6%90%AD%E5%BB%BA/" title="v2ray梯子搭建"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="Catalogue" role="button">
+        <span>[&nbsp;</span><span>Catalogue</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
     
   </ul>
   
